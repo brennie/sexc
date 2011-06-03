@@ -43,7 +43,7 @@ void nextToken(FILE *input)
 	char buffer[FN_NAME_MAX + 1];
 	int c;
 
-	for (c = fgetc(input); !IS_WHITESPACE(c); c = fgetc(input));
+	for (c = fgetc(input); IS_WHITESPACE(c); c = fgetc(input));
 
 	if (c == '(')
 		lookahead.type = BEGIN;
