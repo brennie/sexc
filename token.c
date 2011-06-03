@@ -16,6 +16,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 
@@ -28,20 +29,29 @@
 
 extern Token lookahead;
 
+void die(const char *message)
+{
+	fprintf(stderr, "Error: %s.\n", message);
+	exit(1);
+}
+
 int fpeek(FILE *stream)
 {
 	int c = fgetc(stream);
 	if (ungetc(c, stream) == EOF)
-		; // TODO: ERROR
+		die("ungetc failed");
 
 	return c;
 }
 
-//TODO: EOF CHECKS
 void nextToken(FILE *input)
 {
 	char buffer[FN_NAME_MAX + 1];
 	int c;
+
+	if (feof(input))
+		die("EOF");
+		
 
 	for (c = fgetc(input); IS_WHITESPACE(c); c = fgetc(input));
 
@@ -89,12 +99,15 @@ void nextToken(FILE *input)
 			buffer[pos] = c & 0xFF;
 			pos++;
 		}
-		//if (pos == TOK_MAX && !IS_SPECIAL(c)) error token too long
+		
+		if (pos == FN_NAME_MAX && !IS_SPECIAL(c))
+			die("token too long");
+
 		ungetc(c, input);
 			
 		index = lookupFunction(buffer);
 		if (index < 0)
-			; // TODO: error
+			die("function not found");
 		else
 			lookahead.value.fnIndex = index;
 	}
