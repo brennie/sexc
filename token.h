@@ -38,6 +38,8 @@ typedef struct
 }
 Token;
 
+void die(const char *message);
+
 void nextToken(FILE *input);
 
 #endif

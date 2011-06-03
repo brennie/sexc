@@ -25,6 +25,13 @@ typedef int Function(unsigned int, int *);
 {
 	const char *name;
 	Function *function;
+
+	enum {
+		ARGS_FIXED,
+		ARGS_VARIADIC
+	}
+	argType;
+
 	unsigned int numArgs;
 }
 FunctionRecord;

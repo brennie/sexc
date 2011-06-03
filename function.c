@@ -16,11 +16,49 @@
  */
 
 #include <string.h>
+
 #include "function.h"
+
+static int add(unsigned int numArgs, int *args)
+{
+	int sum = args[0];
+	unsigned int i;
+
+	for (i = 1; i < numArgs; i++)
+		sum += args[i];
+
+	return sum;
+}
+
+static int sub(unsigned int numARgs, int *args)
+{
+	return args[0] - args[1];
+}
+
+static int mul(unsigned int numArgs, int *args)
+{
+	int product = args[0];
+	unsigned int i;
+
+	for (i = 1; i < numArgs; i++)
+		product *= args[i];
+
+	return product;
+}
+
+//TODO: Handle division by 0 error
+static int div(unsigned int numArgs, int *args)
+{
+	return args[0] / args[1];
+}
 
 const FunctionRecord functionTable[] = 
 {
-	{NULL, NULL, 0}
+	{"+", add, ARGS_VARIADIC, 2},
+	{"-", sub, ARGS_FIXED, 2},
+	{"*", mul, ARGS_VARIADIC, 2},
+	{"/", div, ARGS_FIXED, 2},
+	{NULL, NULL, 0, 0}
 };
 
 int lookupFunction(const char *name)
