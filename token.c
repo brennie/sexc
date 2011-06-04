@@ -85,7 +85,7 @@ void nextToken(FILE *input)
 	else
 	{
 		unsigned pos = 1;
-		unsigned index;
+		int index;
 
 		lookahead.type = FUNCTION;
 
@@ -96,8 +96,9 @@ void nextToken(FILE *input)
 		c = fgetc(input);
 		while (!IS_SPECIAL(c) && pos < FN_NAME_MAX)
 		{
-			buffer[pos] = c & 0xFF;
-			pos++;
+			buffer[pos++] = c & 0xFF;
+			
+			c = fgetc(input);
 		}
 		
 		if (pos == FN_NAME_MAX && !IS_SPECIAL(c))
@@ -106,6 +107,7 @@ void nextToken(FILE *input)
 		ungetc(c, input);
 			
 		index = lookupFunction(buffer);
+
 		if (index < 0)
 			die("function not found");
 		else

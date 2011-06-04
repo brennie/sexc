@@ -1,5 +1,3 @@
-#ifndef INCLUDE_TOKEN_H
-#define INCLUDE_TOKEN_H
 /* sexc - s-expression calculator
  * Copyright (C) 2011  Barret Rennie
  *
@@ -17,30 +15,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdio.h>
+#include <stdlib.h>
 
-typedef enum
+#include "syntaxtree.h"
+
+SyntaxTree *newSyntaxTree()
 {
-	BEGIN,
-	END,
-	FUNCTION,
-	VALUE
+	SyntaxTree *tree = malloc(sizeof(SyntaxTree));
+	if (tree != NULL)
+		tree->next = tree->firstChild = NULL;
 }
-TokenType;
 
-typedef struct 
+void freeSyntaxTree(SyntaxTree *root)
 {
-	TokenType type;
-	union
-	{
-		unsigned int fnIndex;
-		int number;
-	}
-	value;
+	if (root == NULL) return;
+	
+	freeSyntaxTree(root->next);
+	freeSyntaxTree(root->firstChild);
+	
+	free(root);
 }
-Token;
-
-void die(const char *message);
-void nextToken(FILE *input);
-
-#endif

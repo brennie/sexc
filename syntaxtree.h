@@ -28,5 +28,7 @@ typedef struct sexc_syntax_tree
 }
 SyntaxTree;
 
+SyntaxTree *newSyntaxTree();
+void freeSyntaxTree(SyntaxTree *root);
 
 #endif
