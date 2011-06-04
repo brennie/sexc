@@ -106,7 +106,7 @@ void interpret(FILE *input, FILE *output)
 	SyntaxTree *head;
 	nextToken(input); // Initialize lookahead
 
-	matchExpression(&head);
+	head = matchExpression(input);
 
 	value = evaluateSyntaxTree(&head);
 
