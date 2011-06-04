@@ -54,7 +54,7 @@ void nextToken(FILE *input)
 	if (c == EOF)
 	{
 #ifdef DEBUG
-		printf("Got EOF");
+		printf("Got EOF\n");
 #endif DEBUG
 		return;
 	}
@@ -65,7 +65,7 @@ void nextToken(FILE *input)
 
 #ifdef DEBUG
 		printf("Got (\n");
-#endif DEBUG
+#endif
 	}
 	else if (c == ')')
 	{
@@ -73,7 +73,7 @@ void nextToken(FILE *input)
 
 #ifdef DEBUG
 		printf("Got )\n");
-#endif DEBUG
+#endif
 	}
 	else if (IS_SIGN_PREFIX(c) && isdigit(fpeek(input)) || isdigit(c))
 	{

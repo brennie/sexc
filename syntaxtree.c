@@ -50,11 +50,7 @@ int evaluateSyntaxTree(SyntaxTree **head)
 	Token t = (*head)->token;
 	
 	if (t.type == VALUE)
-	{
-		free (*head);
-		*head = NULL;
 		return t.value.number;
-	}
 	
 	else if (t.type == FUNCTION)
 	{
@@ -72,17 +68,19 @@ int evaluateSyntaxTree(SyntaxTree **head)
 
 #ifdef DEBUG
 		printf("Function %s has %d children.\n", fn.name, numChildren);
-#endif DEBUG
+#endif
 
 		for (i = 0, child = (*head)->firstChild; child != NULL; i++, child = child->next)
+		{
+#ifdef DEBUG
+			printf("i = %d, child = %p\n", i, child);
+#endif
 			argList[i] = evaluateSyntaxTree(&child);
+		}
 
 		value = fn.function(numChildren, argList);
 
 		free(argList);
-
-		free(*head);
-		*head = NULL;
 
 		return value;
 	}

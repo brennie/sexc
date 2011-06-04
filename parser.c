@@ -114,4 +114,6 @@ void interpret(FILE *input, FILE *output)
 	value = evaluateSyntaxTree(&head);
 
 	fprintf(output, "Result: %d\n", value);
+
+	freeSyntaxTree(head);
 }
