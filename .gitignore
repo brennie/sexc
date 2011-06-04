@@ -3,3 +3,4 @@ sexc.vcxproj.filters
 sexc.vcxproj
 sexc.vcxproj.user
 Debug/*
+Release/*

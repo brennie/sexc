@@ -1,3 +1,5 @@
+#ifndef INCLUDE_PARSER_H
+#define INCLUDE_PARSER_H
 /* sexc - s-expression calculator
  * Copyright (C) 2011  Barret Rennie
  *
@@ -16,19 +18,13 @@
  */
 
 #include <stdio.h>
-#include <stdlib.h>
 
 #include "token.h"
-#include "parser.h"
+#include "syntaxtree.h"
 
-
-
-int main()
-{
-	FILE *input = stdin;
-	FILE *output = stdout;
-
-	interpret(input, output);
-
-	return 0;
-}
+void interpret(FILE *input, FILE *output);
+SyntaxTree *matchExpression(FILE *input);
+SyntaxTree *matchFunction(FILE *input);
+void matchType(FILE *input, TokenType type);
+SyntaxTree *getFunction(FILE *input);
+#endif
