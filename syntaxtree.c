@@ -75,7 +75,9 @@ int evaluateSyntaxTree(SyntaxTree **head)
 
 		value = fn.function(numChildren, argList);
 
-		free (*head);
+		free(argList);
+
+		free(*head);
 		*head = NULL;
 
 		return value;

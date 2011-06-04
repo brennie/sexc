@@ -54,15 +54,32 @@ void nextToken(FILE *input)
 		
 
 	for (c = fgetc(input); IS_WHITESPACE(c); c = fgetc(input));
-
+	
+	if (c == EOF)
+		return;
+	
 	if (c == '(')
+	{	
 		lookahead.type = BEGIN;
+
+#ifdef DEBUG
+		printf("Got (\n");
+#endif DEBUG
+	}
 	else if (c == ')')
+	{
 		lookahead.type = END;
+
+#ifdef DEBUG
+		printf("Got )\n");
+#endif DEBUG
+	}
 	else if (IS_SIGN_PREFIX(c) && isdigit(fpeek(input)) || isdigit(c))
 	{
 		int sign = 1;
+
 		lookahead.type = VALUE;
+		lookahead.value.number = 0;
 
 		if (IS_SIGN_PREFIX(c))
 		{
@@ -80,6 +97,10 @@ void nextToken(FILE *input)
 		}
 
 		lookahead.value.number *= sign;
+
+#ifdef DEBUG
+		printf("Got number: %d\n", lookahead.value.number);
+#endif
 			
 	}
 	else
@@ -112,6 +133,11 @@ void nextToken(FILE *input)
 			die("function not found");
 		else
 			lookahead.value.fnIndex = index;
+
+#ifdef DEBUG
+		printf("Got function: %d:%s\n", lookahead.value.fnIndex, buffer);
+#endif
+
 	}
 
 }

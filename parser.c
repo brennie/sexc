@@ -35,6 +35,8 @@ SyntaxTree *matchExpression(FILE *input)
 	}
 	else if (lookahead.type == BEGIN)
 		head = matchFunction(input);
+	else
+		die("Expected expression");
 
 	nextToken(input);
 
@@ -56,14 +58,16 @@ SyntaxTree *matchFunction(FILE *input)
 
 		expression = matchExpression(input);
 
-		if (children == NULL)
+		if (children == NULL) // first child
 		{
 			children = expression;
 			child = children->next;
 		}
-
-		child->next = expression;
-		child = child->next;
+		else
+		{
+			child->next = expression;
+			child = child->next;
+		}
 	}
 
 	if (children != NULL)
