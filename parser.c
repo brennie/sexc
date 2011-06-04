@@ -61,7 +61,7 @@ SyntaxTree *matchFunction(FILE *input)
 		if (children == NULL) // first child
 		{
 			children = expression;
-			child = children->next;
+			child = children;
 		}
 		else
 		{

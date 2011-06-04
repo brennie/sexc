@@ -70,6 +70,10 @@ int evaluateSyntaxTree(SyntaxTree **head)
 		
 		argList = calloc(numChildren, sizeof(int));
 
+#ifdef DEBUG
+		printf("Function %s has %d children.\n", fn.name, numChildren);
+#endif DEBUG
+
 		for (i = 0, child = (*head)->firstChild; child != NULL; i++, child = child->next)
 			argList[i] = evaluateSyntaxTree(&child);
 

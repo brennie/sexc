@@ -21,8 +21,6 @@
 #include "token.h"
 #include "parser.h"
 
-
-
 int main()
 {
 	FILE *input = stdin;

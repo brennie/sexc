@@ -47,16 +47,17 @@ int fpeek(FILE *stream)
 void nextToken(FILE *input)
 {
 	char buffer[FN_NAME_MAX + 1];
-	int c;
-
-	if (feof(input))
-		die("EOF");
-		
+	int c;	
 
 	for (c = fgetc(input); IS_WHITESPACE(c); c = fgetc(input));
 	
 	if (c == EOF)
+	{
+#ifdef DEBUG
+		printf("Got EOF");
+#endif DEBUG
 		return;
+	}
 	
 	if (c == '(')
 	{	
@@ -95,6 +96,8 @@ void nextToken(FILE *input)
 			lookahead.value.number += c - '0';
 			c = fgetc(input);
 		}
+
+		ungetc(c, input);
 
 		lookahead.value.number *= sign;
 
