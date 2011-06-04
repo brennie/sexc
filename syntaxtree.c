@@ -18,12 +18,21 @@
 #include <stdlib.h>
 
 #include "syntaxtree.h"
+#include "function.h"
+
+extern const FunctionRecord functionTable[];
 
 SyntaxTree *newSyntaxTree()
 {
 	SyntaxTree *tree = malloc(sizeof(SyntaxTree));
+	
 	if (tree != NULL)
+	{
 		tree->next = tree->firstChild = NULL;
+		tree->numChildren = 0;
+	}
+
+	return tree;
 }
 
 void freeSyntaxTree(SyntaxTree *root)
@@ -34,4 +43,43 @@ void freeSyntaxTree(SyntaxTree *root)
 	freeSyntaxTree(root->firstChild);
 	
 	free(root);
+}
+
+int evaluateSyntaxTree(SyntaxTree **head)
+{
+	Token t = (*head)->token;
+	
+	if (t.type == VALUE)
+	{
+		free (*head);
+		*head = NULL;
+		return t.value.number;
+	}
+	
+	else if (t.type == FUNCTION)
+	{
+		SyntaxTree *child;
+		unsigned i;
+		int value;
+		int *argList;
+		unsigned int numChildren = (*head)->numChildren;
+		const FunctionRecord fn = functionTable[t.value.fnIndex];
+
+		if ((fn.argType == ARGS_FIXED && numChildren != fn.numArgs) || (fn.argType == ARGS_VARIADIC && numChildren < fn.numArgs))
+			die("Invalid number of arguments");
+		
+		argList = calloc(numChildren, sizeof(int));
+
+		for (i = 0, child = (*head)->firstChild; child != NULL; i++, child = child->next)
+			argList[i] = evaluateSyntaxTree(&child);
+
+		value = fn.function(numChildren, argList);
+
+		free (*head);
+		*head = NULL;
+
+		return value;
+	}
+
+	die("Malformed syntax tree.");
 }

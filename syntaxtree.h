@@ -24,11 +24,14 @@ typedef struct sexc_syntax_tree
 	struct sexc_syntax_tree *next;
 	struct sexc_syntax_tree *firstChild;
 
+	unsigned int numChildren;
 	Token token;
 }
 SyntaxTree;
 
 SyntaxTree *newSyntaxTree();
 void freeSyntaxTree(SyntaxTree *root);
+
+int evaluateSyntaxTree(SyntaxTree **head);
 
 #endif
