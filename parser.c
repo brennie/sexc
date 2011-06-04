@@ -48,7 +48,8 @@ SyntaxTree *matchFunction(FILE *input)
 	SyntaxTree *head, *expression, *children = NULL, *child;
 	unsigned numChildren = 0;
 
-	matchType(input, BEGIN);
+	matchType(BEGIN);
+	nextToken(input);
 
 	head = getFunction(input);
 
@@ -76,17 +77,15 @@ SyntaxTree *matchFunction(FILE *input)
 		head->numChildren = numChildren;
 	}
 
-	matchType(input, END);
+	matchType(END);
 
 	return head;
 }
 
-void matchType(FILE *input, TokenType type)
+void matchType(TokenType type)
 {
 	if (lookahead.type != type)
 		die("Expected different token.");
-
-	nextToken(input);
 }
 
 SyntaxTree *getFunction(FILE *input)

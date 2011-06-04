@@ -25,6 +25,6 @@
 void interpret(FILE *input, FILE *output);
 SyntaxTree *matchExpression(FILE *input);
 SyntaxTree *matchFunction(FILE *input);
-void matchType(FILE *input, TokenType type);
+void matchType(TokenType type);
 SyntaxTree *getFunction(FILE *input);
 #endif
