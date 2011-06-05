@@ -21,16 +21,19 @@
 
 typedef double Function(unsigned int, double *);
 
+typedef enum {
+		ARGS_NULL,
+		ARGS_FIXED,
+		ARGS_VARIADIC
+}
+ArgType;
+
  typedef struct
 {
 	const char *name;
 	Function *function;
 
-	enum {
-		ARGS_FIXED,
-		ARGS_VARIADIC
-	}
-	argType;
+	ArgType argType;
 
 	unsigned int numArgs;
 }

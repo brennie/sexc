@@ -19,10 +19,10 @@
 
 #include "function.h"
 
-static double add(int numArgs, double *args)
+static double add(unsigned int numArgs, double *args)
 {
 	double sum = args[0];
-	int i;
+	unsigned int i;
 
 	for (i = 1; i < numArgs; i++)
 		sum += args[i];
@@ -30,15 +30,15 @@ static double add(int numArgs, double *args)
 	return sum;
 }
 
-static double sub(int numArgs, double *args)
+static double sub(unsigned int numArgs, double *args)
 {
 	return args[0] - args[1];
 }
 
-static double mul(int numArgs, double *args)
+static double mul(unsigned int numArgs, double *args)
 {
 	double product = args[0];
-	int i;
+	unsigned int i;
 
 	for (i = 1; i < numArgs; i++)
 		product *= args[i];
@@ -47,7 +47,7 @@ static double mul(int numArgs, double *args)
 }
 
 //TODO: Handle division by 0 error
-static double div(int numArgs, double *args)
+static double div(unsigned int numArgs, double *args)
 {
 	return args[0] / args[1];
 }
@@ -58,7 +58,7 @@ const FunctionRecord functionTable[] =
 	{"-", sub, ARGS_FIXED, 2},
 	{"*", mul, ARGS_VARIADIC, 2},
 	{"/", div, ARGS_FIXED, 2},
-	{NULL, NULL, 0, 0}
+	{NULL, NULL, ARGS_NULL, 0}
 };
 
 int lookupFunction(const char *name)
