@@ -32,6 +32,6 @@ SyntaxTree;
 SyntaxTree *newSyntaxTree();
 void freeSyntaxTree(SyntaxTree *root);
 
-int evaluateSyntaxTree(SyntaxTree **head);
+double evaluateSyntaxTree(SyntaxTree **head);
 
 #endif

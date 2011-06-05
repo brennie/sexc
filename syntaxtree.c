@@ -45,7 +45,7 @@ void freeSyntaxTree(SyntaxTree *root)
 	free(root);
 }
 
-int evaluateSyntaxTree(SyntaxTree **head)
+double evaluateSyntaxTree(SyntaxTree **head)
 {
 	Token t = (*head)->token;
 	
@@ -55,16 +55,16 @@ int evaluateSyntaxTree(SyntaxTree **head)
 	else if (t.type == FUNCTION)
 	{
 		SyntaxTree *child;
-		unsigned i;
-		int value;
-		int *argList;
+		unsigned int i;
+		double value;
+		double *argList;
 		unsigned int numChildren = (*head)->numChildren;
 		const FunctionRecord fn = functionTable[t.value.fnIndex];
 
 		if ((fn.argType == ARGS_FIXED && numChildren != fn.numArgs) || (fn.argType == ARGS_VARIADIC && numChildren < fn.numArgs))
 			die("Invalid number of arguments");
 		
-		argList = calloc(numChildren, sizeof(int));
+		argList = calloc(numChildren, sizeof(double));
 
 #ifdef DEBUG
 		printf("Function %s has %d children.\n", fn.name, numChildren);

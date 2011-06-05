@@ -105,7 +105,7 @@ SyntaxTree *getFunction(FILE *input)
 
 void interpret(FILE *input, FILE *output)
 {
-	int value;
+	double value;
 	SyntaxTree *head;
 	nextToken(input); // Initialize lookahead
 
@@ -113,7 +113,7 @@ void interpret(FILE *input, FILE *output)
 
 	value = evaluateSyntaxTree(&head);
 
-	fprintf(output, "Result: %d\n", value);
+	fprintf(output, "Result: %f\n", value);
 
 	freeSyntaxTree(head);
 }

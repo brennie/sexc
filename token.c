@@ -38,8 +38,8 @@ void die(const char *message)
 int fpeek(FILE *stream)
 {
 	int c = fgetc(stream);
-	if (ungetc(c, stream) == EOF)
-		die("ungetc failed");
+	if (ungetc(c, stream) == EOF && c != EOF)
+		die("Stream error");
 
 	return c;
 }
@@ -77,34 +77,15 @@ void nextToken(FILE *input)
 	}
 	else if (IS_SIGN_PREFIX(c) && isdigit(fpeek(input)) || isdigit(c))
 	{
-		int sign = 1;
-
-		lookahead.type = VALUE;
-		lookahead.value.number = 0;
-
-		if (IS_SIGN_PREFIX(c))
-		{
-			if (c == '-')
-				sign = -1;
-
-			c = fgetc(input);
-		}
-
-		while (isdigit(c))
-		{
-			lookahead.value.number *= 10;
-			lookahead.value.number += c - '0';
-			c = fgetc(input);
-		}
-
 		ungetc(c, input);
 
-		lookahead.value.number *= sign;
+		lookahead.type = VALUE;
+
+		fscanf(input, "%lf", &lookahead.value.number);
 
 #ifdef DEBUG
-		printf("Got number: %d\n", lookahead.value.number);
-#endif
-			
+		printf("Got number %f\n", lookahead.value.number);
+#endif	
 	}
 	else
 	{

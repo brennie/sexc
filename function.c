@@ -19,10 +19,10 @@
 
 #include "function.h"
 
-static int add(unsigned int numArgs, int *args)
+static double add(int numArgs, double *args)
 {
-	int sum = args[0];
-	unsigned int i;
+	double sum = args[0];
+	int i;
 
 	for (i = 1; i < numArgs; i++)
 		sum += args[i];
@@ -30,15 +30,15 @@ static int add(unsigned int numArgs, int *args)
 	return sum;
 }
 
-static int sub(unsigned int numARgs, int *args)
+static double sub(int numArgs, double *args)
 {
 	return args[0] - args[1];
 }
 
-static int mul(unsigned int numArgs, int *args)
+static double mul(int numArgs, double *args)
 {
-	int product = args[0];
-	unsigned int i;
+	double product = args[0];
+	int i;
 
 	for (i = 1; i < numArgs; i++)
 		product *= args[i];
@@ -47,7 +47,7 @@ static int mul(unsigned int numArgs, int *args)
 }
 
 //TODO: Handle division by 0 error
-static int div(unsigned int numArgs, int *args)
+static double div(int numArgs, double *args)
 {
 	return args[0] / args[1];
 }

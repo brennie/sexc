@@ -34,7 +34,7 @@ typedef struct
 	union
 	{
 		unsigned int fnIndex;
-		int number;
+		double number;
 	}
 	value;
 }

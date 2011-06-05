@@ -19,7 +19,7 @@
 
 #define FN_NAME_MAX 32
 
-typedef int Function(unsigned int, int *);
+typedef double Function(unsigned int, double *);
 
  typedef struct
 {
