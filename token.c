@@ -55,7 +55,7 @@ void nextToken(FILE *input)
 	{
 #ifdef DEBUG
 		printf("Got EOF\n");
-#endif DEBUG
+#endif
 		return;
 	}
 	
