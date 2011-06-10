@@ -38,8 +38,6 @@ SyntaxTree *matchExpression(FILE *input)
 	else
 		die("Expected expression");
 
-	nextToken(input);
-
 	return head;
 }
 
@@ -49,9 +47,10 @@ SyntaxTree *matchFunction(FILE *input)
 	unsigned numChildren = 0;
 
 	matchType(BEGIN);
-	nextToken(input);
 
 	head = getFunction(input);
+
+	nextToken(input);
 
 	while(lookahead.type != END)
 	{
@@ -69,6 +68,8 @@ SyntaxTree *matchFunction(FILE *input)
 			child->next = expression;
 			child = child->next;
 		}
+		
+		nextToken(input);
 	}
 
 	if (children != NULL)
@@ -92,13 +93,13 @@ SyntaxTree *getFunction(FILE *input)
 {
 	SyntaxTree *head;
 
+	nextToken(input);
+
 	if (lookahead.type != FUNCTION)
 		die("Expected function.");
 
 	head = newSyntaxTree();
 	head->token = lookahead;
-
-	nextToken(input);
 
 	return head;
 }
@@ -107,8 +108,8 @@ void interpret(FILE *input, FILE *output)
 {
 	double value;
 	SyntaxTree *head;
-	nextToken(input); // Initialize lookahead
 
+	nextToken(input);
 	head = matchExpression(input);
 
 	value = evaluateSyntaxTree(&head);

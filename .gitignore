@@ -4,3 +4,4 @@ sexc.vcxproj
 sexc.vcxproj.user
 Debug/*
 Release/*
+Debug -DDEBUG/*
