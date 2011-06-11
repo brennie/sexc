@@ -18,6 +18,7 @@
 #include <string.h>
 
 #include "function.h"
+#include "token.h"
 
 static double add(unsigned int numArgs, double *args)
 {
@@ -46,9 +47,11 @@ static double mul(unsigned int numArgs, double *args)
 	return product;
 }
 
-//TODO: Handle division by 0 error
 static double div(unsigned int numArgs, double *args)
 {
+	if (args[1] < 0)
+		die("Division by zero");
+
 	return args[0] / args[1];
 }
 
