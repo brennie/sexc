@@ -56,7 +56,7 @@ void nextToken(FILE *input)
 #ifdef DEBUG
 		printf("Got EOF\n");
 #endif
-		return;
+		die("EOF Reached.");
 	}
 	
 	if (c == '(')

@@ -106,15 +106,19 @@ SyntaxTree *getFunction(FILE *input)
 
 void interpret(FILE *input, FILE *output)
 {
-	double value;
-	SyntaxTree *head;
+	while (!feof(input))
+	{
+		double value;
+		SyntaxTree *head;
+		
+		nextToken(input);
+	
+		head = matchExpression(input);
 
-	nextToken(input);
-	head = matchExpression(input);
+		value = evaluateSyntaxTree(&head);
+	
+		fprintf(output, "Result: %f\n", value);
 
-	value = evaluateSyntaxTree(&head);
-
-	fprintf(output, "Result: %f\n", value);
-
-	freeSyntaxTree(head);
+		freeSyntaxTree(head);
+	}
 }
