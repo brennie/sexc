@@ -23,7 +23,6 @@
 
 Token lookahead;
 
-//TODO: Null checking
 SyntaxTree *matchExpression(FILE *input)
 {
 	SyntaxTree *head;

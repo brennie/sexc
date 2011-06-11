@@ -31,6 +31,8 @@ SyntaxTree *newSyntaxTree()
 		tree->next = tree->firstChild = NULL;
 		tree->numChildren = 0;
 	}
+	else
+		die("Could not allocate memory.");
 
 	return tree;
 }
