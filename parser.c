@@ -85,7 +85,7 @@ SyntaxTree *matchFunction(FILE *input)
 void matchType(TokenType type)
 {
 	if (lookahead.type != type)
-		die("Expected different token.");
+		die("Expected different token");
 }
 
 SyntaxTree *getFunction(FILE *input)
@@ -95,7 +95,7 @@ SyntaxTree *getFunction(FILE *input)
 	nextToken(input);
 
 	if (lookahead.type != FUNCTION)
-		die("Expected function.");
+		die("Expected function");
 
 	head = newSyntaxTree();
 	head->token = lookahead;

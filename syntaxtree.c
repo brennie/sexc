@@ -32,7 +32,7 @@ SyntaxTree *newSyntaxTree()
 		tree->numChildren = 0;
 	}
 	else
-		die("Could not allocate memory.");
+		die("Could not allocate memory");
 
 	return tree;
 }
@@ -87,5 +87,5 @@ double evaluateSyntaxTree(SyntaxTree **head)
 		return value;
 	}
 
-	die("Malformed syntax tree.");
+	die("Malformed syntax tree");
 }
